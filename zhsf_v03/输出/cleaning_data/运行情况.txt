@@ -1,0 +1,11 @@
+(base) E:\wenshuES\zhsf-3.0>python -m zhsf.cleaning_data.cleaning_data_with_id
+当前时间: 2020-03-22 15:25:14.295576
+Running consumes minutes: 38.16489631732305
+
+(base) E:\wenshuES\zhsf-3.0>python -m zhsf.cleaning_data.cleaning_data_with_ncl
+当前时间: 2020-03-22 16:19:22.722349
+Running consumes hours: 1.378396603928672
+
+(base) E:\wenshuES\zhsf-3.0>python -m zhsf.cleaning_data.cleaning_data_with_clt
+当前时间: 2020-03-22 18:03:20.271346
+Running consumes minutes: 23.713511033852896
