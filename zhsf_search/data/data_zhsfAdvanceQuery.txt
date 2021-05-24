@@ -1,0 +1,83 @@
+{
+    "quanwen": {
+        "quanwen": "机械",
+        "last": false
+    },
+    "s1": {
+        "s1": "交通",
+        "last": false
+    },
+    "s7": {
+        "s7": "617号",
+        "last": false
+    },
+    "court_name": {
+        "court_name": "浙江",
+        "last": false
+    },
+    "s31": {
+        "start": "2001-02-01",
+        "end": "2001-06-01",
+        "last": false
+    },
+    "officers_name": {
+        "officers_name": "吴利平",
+        "last": false
+    },
+    "s47": {
+        "fgmc": {
+            "fgmc": "婚姻法",
+            "last": false
+        },
+        "tkx": {
+            "tkx": "第五条",
+            "last": true
+        },
+        "last": true
+    },
+    
+    "cause_id": {
+        "cause_id": "9013",
+        "last": false
+    },
+    "court_id": {
+        "court_id": "a28_1",
+        "last": false
+    },
+    "court_level": {
+        "court_level": "2",
+        "last": false
+    },
+    "s8": {
+        "s8": "刑事案件",
+        "last": false
+    },
+    "lvl1_spcx": {
+        "lvl1_spcx": "刑事一审",
+        "last": false
+    },
+    "lvl2_spcx": {
+        "lvl2_spcx": "刑事再审",
+        "last": false
+    },
+    "s6": {
+        "s6": "02",
+        "last": false
+    },
+    "litigant": {
+        "name": {
+            "name": "沈耀德",
+            "last": false
+        },
+        "attorney": {
+            "attorney_name": "张计骅",
+            "attorney_firm": "上海市共同综合律师事务所",
+            "last": true
+        },
+        "last": false
+    },
+    "s9": {
+        "s9": "999",
+        "last": true
+    }
+}

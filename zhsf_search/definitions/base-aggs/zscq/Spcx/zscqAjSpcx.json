@@ -1,0 +1,108 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "spcx_category_count": {
+      "terms": {
+        "field": "spcx_category"
+      },
+      "aggs": {
+        "cause_count": {
+          "terms": {
+            "field": "cause_id",
+            "include": ["9299", "9300", "9363", "9433", "9449"]
+          }
+        }
+      }
+    },
+    "cause_count": {
+      "terms": {
+        "field": "cause_id",
+        "include": ["9299", "9300", "9363", "9433", "9449"]
+      },
+      "aggs": {
+        "xgws": {
+          "nested": {
+            "path": "xgws"
+          },
+          "aggs": {
+            "max": {
+              "max": {
+                "field": "xgws.hearing_cycle"
+              }
+            },
+            "avg": {
+              "avg": {
+                "field": "xgws.hearing_cycle"
+              }
+            },
+            "min": {
+              "min": {
+                "field": "xgws.hearing_cycle"
+              }
+            }
+          }
+        }
+      }
+    },
+    "xgws": {
+      "nested": {
+        "path": "xgws"
+      },
+      "aggs": {
+        "hearing_cycle": {
+          "range": {
+            "field": "xgws.hearing_cycle",
+            "ranges": [
+              {
+                "to": 60
+              },
+              {
+                "from": 60,
+                "to": 120
+              },
+              {
+                "from": 120,
+                "to": 180
+              },
+              {
+                "from": 180,
+                "to": 240
+              },
+              {
+                "from": 240,
+                "to": 300
+              },
+              {
+                "from": 300
+              }
+            ]
+          },
+          "aggs": {
+            "back_to_root": {
+              "reverse_nested": {},
+              "aggs": {
+                "cause_count": {
+                  "terms": {
+                    "field": "cause_id",
+                    "include": ["9299", "9300", "9363", "9433", "9449"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

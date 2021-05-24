@@ -1,0 +1,48 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "cause_count": {
+      "terms": {
+        "field": "cause_id",
+        "include": ["9299", "9300", "9363", "9433", "9449"]
+      }
+    },
+    "type_count": {
+      "terms": {
+        "field": "cause_id",
+        "include": ["9299", "9301", "9315", "9319", "9364", "9393", "9396", "9433", "9449"]
+      }
+    },
+    "year": {
+      "date_histogram": {
+        "field": "s31",
+        "calendar_interval": "year"
+      },
+      "aggs": {
+        "cause_count": {
+          "terms": {
+            "field": "cause_id",
+            "include": ["9299", "9300", "9363", "9433", "9449"]
+          }
+        },
+        "type_count": {
+          "terms": {
+            "field": "cause_id",
+            "include": ["9299", "9301", "9315", "9319", "9364", "9393", "9396", "9433", "9449"]
+          }
+        }
+      }
+    }
+  }
+}

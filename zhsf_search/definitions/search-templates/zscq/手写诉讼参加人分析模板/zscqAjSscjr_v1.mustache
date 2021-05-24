@@ -1,0 +1,318 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {{#s1}}
+        {
+          "match": {
+            "s1": "{{s1}}"
+          }
+        },
+        {{/s1}}
+        
+        {{#quanwen}}
+        {
+          "simple_query_string": {
+            "query": "{{quanwen}}",
+            "fields": ["s22", "s23", "s25", "s26^3", "s27", "s28", "s53"]
+          }
+        },
+        {{/quanwen}}
+        
+        {{#cause_id}}
+        {
+          "terms": {
+            "cause_id": "cause_id"
+          }
+        },
+        {{/cause_id}}
+        
+        {{#s7}}
+        {
+          "match": {
+            "s7.num": "{{s7}}"
+          }
+        },
+        {{/s7}}
+        
+        {{#court_level}}
+        {
+          "term": {
+            "court_level": "{{court_level}}"
+          }
+        },
+        {{/court_level}}
+        
+        {{#court_id}}
+        {
+          "prefix": {
+            "court_id": "{{court_id}}"
+          }
+        }{{^last}}, {{/last}}
+        {{/court_id}}
+        
+        {{#officers_name}}
+        {
+          "nested": {
+            "path": "officers",
+            "query": {
+              "term": {
+                "officers.name": "{{officers_name}}"
+              }
+            }
+          }
+        },
+        {{/officers_name}}
+        
+        {{#spcx_category}}
+        {
+          "term": {
+            "spcx_category": "{{spcx_category}}"
+          }
+        },
+        {{/spcx_category}}
+        
+        {{#s6}}
+        {
+          "term": {
+            "s6": "{{s6}}"
+          }
+        },
+        {{/s6}}
+        
+        {{#litigant_active}}
+        {
+          "nested": {
+            "path": "litigant",
+            "query": {
+              "bool": {
+                "filter": [
+                
+                  {{#name}}
+                  {
+                    "term": {
+                      "litigant.name": "{{name}}"
+                    }
+                  },
+                  {{/name}}
+                  
+                  {{#attorney}}
+                  {
+                    "nested": {
+                      "path": "litigant.attorneys",
+                      "query": {
+                        "bool": {
+                          "filter": [
+                            
+                            {{#attorney_name}}
+                            {
+                              "term": {
+                                "litigant.attorneys.name": "{{attorney_name}}"
+                              }
+                            },
+                            {{/attorney_name}}
+                            
+                            {{#attorney_firm}}
+                            {
+                              "term": {
+                                "litigant.attorneys.firm": "{{attorney_firm}}"
+                              }
+                            },
+                            {{/attorney_firm}}
+                            
+                            {
+                              "term": {
+                                "litigant.attorneys.type": "律师"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {{/attorney}}
+                  
+                  {
+                    "term": {
+                      "litigant.part": "1"
+                    }
+                  }
+                  
+                ]
+              }
+            }
+          }
+        },
+        {{/litigant_active}}
+        
+        {{#litigant_passive}}
+        {
+          "nested": {
+            "path": "litigant",
+            "query": {
+              "bool": {
+                "filter": [
+                
+                  {{#name}}
+                  {
+                    "term": {
+                      "litigant.name": "{{name}}"
+                    }
+                  },
+                  {{/name}}
+                  
+                  {{#attorney}}
+                  {
+                    "nested": {
+                      "path": "litigant.attorneys",
+                      "query": {
+                        "bool": {
+                          "filter": [
+                            
+                            {{#attorney_name}}
+                            {
+                              "term": {
+                                "litigant.attorneys.name": "{{attorney_name}}"
+                              }
+                            },
+                            {{/attorney_name}}
+                            
+                            {{#attorney_firm}}
+                            {
+                              "term": {
+                                "litigant.attorneys.firm": "{{attorney_firm}}"
+                              }
+                            },
+                            {{/attorney_firm}}
+                            
+                            {
+                              "term": {
+                                "litigant.attorneys.type": "律师"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {{/attorney}}
+                  
+                  {
+                    "term": {
+                      "litigant.part": "2"
+                    }
+                  }
+                  
+                ]
+              }
+            }
+          }
+        },
+        {{/litigant_passive}}
+        
+        {{#litigant_middle}}
+        {
+          "nested": {
+            "path": "litigant",
+            "query": {
+              "bool": {
+                "filter": [
+                
+                  {{#name}}
+                  {
+                    "term": {
+                      "litigant.name": "{{name}}"
+                    }
+                  },
+                  {{/name}}
+                  
+                  {{#attorney}}
+                  {
+                    "nested": {
+                      "path": "litigant.attorneys",
+                      "query": {
+                        "bool": {
+                          "filter": [
+                            
+                            {{#attorney_name}}
+                            {
+                              "term": {
+                                "litigant.attorneys.name": "{{attorney_name}}"
+                              }
+                            },
+                            {{/attorney_name}}
+                            
+                            {{#attorney_firm}}
+                            {
+                              "term": {
+                                "litigant.attorneys.firm": "{{attorney_firm}}"
+                              }
+                            },
+                            {{/attorney_firm}}
+                            
+                            {
+                              "term": {
+                                "litigant.attorneys.type": "律师"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {{/attorney}}
+                  
+                  {
+                    "term": {
+                      "litigant.part": "3"
+                    }
+                  }
+                  
+                ]
+              }
+            }
+          }
+        },
+        {{/litigant_middle}}
+        
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "litigant": {
+      "nested": {
+        "path": "litigant"
+      },
+      "aggs": {
+        "category_count": {
+          "terms": {
+            "field": "litigant.category"
+          }
+        }
+      }
+    },
+    "attorney": {
+      "nested": {
+        "path": "litigant.attorneys"
+      },
+      "aggs": {
+        "firm_count": {
+          "terms": {
+            "field": "litigant.attorneys.firm"
+          }
+        },
+        "name_count": {
+          "terms": {
+            "field": "litigant.attorneys.name_firm"
+          }
+        }
+      }
+    }
+  }
+}

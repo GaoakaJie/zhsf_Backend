@@ -1,0 +1,47 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "court_name": {
+      "terms": {
+        "field": "court_name"
+      },
+      "aggs": {
+        "final_judgement": {
+          "terms": {
+            "field": "is_final_judgment"
+          },
+          "aggs": {
+            "type": {
+              "terms": {
+                "field": "s6"
+              }
+            }
+          }
+        },
+        "spcx": {
+          "terms": {
+            "field": "spcx_category"
+          },
+          "aggs": {
+            "case_result_type": {
+              "terms": {
+                "field": "case_result_type"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

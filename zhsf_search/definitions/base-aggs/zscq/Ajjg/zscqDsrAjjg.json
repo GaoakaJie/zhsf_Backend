@@ -1,0 +1,59 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "litigant": {
+      "nested": {
+        "path": "litigant"
+      },
+      "aggs": {
+        "litigant_count": {
+          "terms": {
+            "field": "litigant.name"
+          },
+          "aggs": {
+            "back_to_root": {
+              "reverse_nested": {},
+              "aggs": {
+                "final_judgement": {
+                  "terms": {
+                    "field": "is_final_judgment"
+                  },
+                  "aggs": {
+                    "type": {
+                      "terms": {
+                        "field": "s6"
+                      }
+                    }
+                  }
+                },
+                "spcx": {
+                  "terms": {
+                    "field": "spcx_category"
+                  },
+                  "aggs": {
+                    "case_result_type": {
+                      "terms": {
+                        "field": "case_result_type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

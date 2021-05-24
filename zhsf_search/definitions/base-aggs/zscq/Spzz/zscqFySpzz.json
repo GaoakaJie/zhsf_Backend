@@ -1,0 +1,40 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "court_name": {
+      "terms": {
+        "field": "court_name"
+      },
+      "aggs": {
+        "court_officers": {
+          "nested": {
+            "path": "officers"
+          },
+          "aggs": {
+            "court_officer_name_count": {
+              "terms": {
+                "field": "officers.name_court"
+              }
+            },
+            "court_officer_position_count": {
+              "terms": {
+                "field": "officers.position"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

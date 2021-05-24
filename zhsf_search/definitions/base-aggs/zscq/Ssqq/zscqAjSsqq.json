@@ -1,0 +1,21 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "claims_type_count": {
+      "terms": {
+        "field": "claims_type"
+      }
+    }
+  }
+}

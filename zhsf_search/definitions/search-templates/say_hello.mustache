@@ -1,0 +1,39 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "must": [
+            
+            {{#to.s1}}
+            {
+              "match": {
+                "s1": "{{to.s1}}"
+              }
+            },
+            {{/to.s1}}
+            
+            {{#to.s7}}
+            {
+              "match": {
+                "s7.num": "{{to.s7}}"
+              }
+            }
+            {{/to.s7}}
+            
+          ]
+        }
+      },
+      "functions": [
+        {
+          "filter": {
+            "exists": {
+              "field": "s26"
+            }
+          },
+          "weight": 2
+        }
+      ]
+    }
+  }
+}

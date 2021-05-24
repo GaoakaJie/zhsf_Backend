@@ -1,0 +1,66 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "attorney": {
+      "nested": {
+        "path": "litigant.attorneys"
+      },
+      "aggs": {
+        "filter_lawer": {
+          "filter": {
+            "term": {
+              "litigant.attorneys.type": "律师"
+            }
+          },
+          "aggs": {
+            "law_firm": {
+              "terms": {
+                "field": "litigant.attorneys.firm"
+              },
+              "aggs": {
+                "back_to_litigant": {
+                  "reverse_nested": {
+                    "path": "litigant"
+                  },
+                  "aggs": {
+                    "category_count": {
+                      "terms": {
+                        "field": "litigant.category"
+                      }
+                    },
+                    "role_count": {
+                      "terms": {
+                        "field": "litigant.role"
+                      }
+                    }
+                  }
+                },
+                "opposite_firm_count": {
+                  "terms": {
+                    "field": "litigant.attorneys.opposite_firm"
+                  }
+                },
+                "oppsite_name_count": {
+                  "terms": {
+                    "field": "litigant.attorneys.opposite_name"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

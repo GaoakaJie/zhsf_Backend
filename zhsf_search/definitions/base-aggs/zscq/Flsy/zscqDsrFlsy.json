@@ -1,0 +1,98 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "litigant": {
+      "nested": {
+        "path": "litigant"
+      },
+      "aggs": {
+        "litigant_count": {
+          "terms": {
+            "field": "litigant.name"
+          },
+          "aggs": {
+            "back_to_root": {
+              "reverse_nested": {},
+              "aggs": {
+                "copyright": {
+                  "filter": {
+                    "term": {
+                      "cause_id": "9364"
+                    }
+                  },
+                  "aggs": {
+                    "legal_basis": {
+                      "nested": {
+                        "path": "legal_basis"
+                      },
+                      "aggs": {
+                        "law_article": {
+                          "terms": {
+                            "field": "legal_basis.law_article"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "trademark": {
+                  "filter": {
+                    "term": {
+                      "cause_id": "9393"
+                    }
+                  },
+                  "aggs": {
+                    "legal_basis": {
+                      "nested": {
+                        "path": "legal_basis"
+                      },
+                      "aggs": {
+                        "law_article": {
+                          "terms": {
+                            "field": "legal_basis.law_article"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "patent": {
+                  "filter": {
+                    "term": {
+                      "cause_id": "9396"
+                    }
+                  },
+                  "aggs": {
+                    "legal_basis": {
+                      "nested": {
+                        "path": "legal_basis"
+                      },
+                      "aggs": {
+                        "law_article": {
+                          "terms": {
+                            "field": "legal_basis.law_article"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

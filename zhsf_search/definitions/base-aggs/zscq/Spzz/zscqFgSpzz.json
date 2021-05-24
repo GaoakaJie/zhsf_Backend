@@ -1,0 +1,35 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "officers": {
+      "nested": {
+        "path": "officers"
+      },
+      "aggs": {
+        "officer_name": {
+          "terms": {
+            "field": "officers.name_court"
+          },
+          "aggs": {
+            "collegial_panel_members": {
+              "terms": {
+                "field": "officers.collegial_panel_members"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

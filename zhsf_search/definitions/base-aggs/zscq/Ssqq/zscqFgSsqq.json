@@ -1,0 +1,65 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "cause_id": "9299"
+          }
+        }
+      ]
+    }
+  },
+  "size": 0,
+  "aggs": {
+    "filter_ysqq": {
+      "filters": {
+        "filters": {
+          "ysqq": {
+            "bool": {
+              "filter": [
+                {
+                  "term": {
+                    "cause_id": "9363"
+                  }
+                },
+                {
+                  "term": {
+                    "spcx_category": "一审"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "aggs": {
+        "officers": {
+          "nested": {
+            "path": "officers"
+          },
+          "aggs": {
+            "officer_name": {
+              "terms": {
+                "field": "officers.name_court",
+                "size": 20
+              },
+              "aggs": {
+                "back_to_root": {
+                  "reverse_nested": {},
+                  "aggs": {
+                    "claims_type_count": {
+                      "terms": {
+                        "field": "claims_type"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

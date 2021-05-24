@@ -1,0 +1,21 @@
+{
+    "quanwen": ["quanwen", "quanwen", "机械"],
+    "s1": ["s1", "s1", "交通"],
+    "s7": ["s7", "s7", "617号"],
+    "court_name": ["court_name", "court_name", "浙江"],
+    "s31_start": ["s31", "start", "2001-02-01"],
+    "s31_end": ["s31", "end", "2001-06-01"],
+    "officers_name": ["officers_name", "officers_name", "吴利平"],
+    "legal_basis_law": ["s47", "fgmc", "fgmc", "婚姻法"],
+    "legal_basis_article": ["s47", "tkx", "tkx", "第五条"],
+    "cause_id": ["cause_id", "cause_id", "9013"],
+    "court_id": ["court_id", "court_id", "a28_1"],
+    "court_level": ["court_level", "court_level", "2"],
+    "s8": ["s8", "s8", " 刑事案件"],
+    "lvl1_spcx": ["lvl1_spcx", "lvl1_spcx", "刑事一审"],
+    "lvl2_spcx": ["lvl2_spcx", "lvl2_spcx", "刑事再审"],
+    "s6": ["s6", "s6", "02"],
+    "litigant_name": ["litigant", "name", "name", "沈耀德"],
+    "attorney_name": ["litigant", "attorney", "attorney_name", "张计骅"],
+    "attorney_firm": ["litigant", "attorney", "attorney_firm", "上海市共同综合律师事务所"]
+}

@@ -1,0 +1,62 @@
+{
+    "s1_and": "交通",
+    "quanwen_and": "机械",
+    "cause_id_and": "9393",
+    "s7_and": "617号",
+    "court_level_and": "2",
+    "court_id_and": "a28_1",
+    "officers_name_and": "吴利平",
+    "spcx_category_and": "一审",
+    "s6_and": "02",
+    "litigant_active_and": {
+        "name": "沈耀德",
+        "attorney": {
+            "attorney_name": "张计骅",
+            "attorney_firm": "上海市共同综合律师事务所"
+        }
+    },
+    "litigant_passive_and": {
+        "name": "沈耀德",
+        "attorney": {
+            "attorney_name": "张计骅",
+            "attorney_firm": "上海市共同综合律师事务所"
+        }
+    },
+    "litigant_middle_and": {
+        "name": "沈耀德",
+        "attorney": {
+            "attorney_name": "张计骅",
+            "attorney_firm": "上海市共同综合律师事务所"
+        }
+    },
+    "s1_or": "交通",
+    "quanwen_or": "机械",
+    "cause_id_or": "9393",
+    "s7_or": "617号",
+    "court_level_or": "2",
+    "court_id_or": "a28_1",
+    "officers_name_or": "吴利平",
+    "spcx_category_or": "一审",
+    "s6_or": "02",
+    "litigant_active_or": {
+        "name": "沈耀德",
+        "attorney": {
+            "attorney_name": "张计骅",
+            "attorney_firm": "上海市共同综合律师事务所"
+        }
+    },
+    "litigant_passive_or": {
+        "name": "沈耀德",
+        "attorney": {
+            "attorney_name": "张计骅",
+            "attorney_firm": "上海市共同综合律师事务所"
+        }
+    },
+    "litigant_middle_or": {
+        "name": "沈耀德",
+        "attorney": {
+            "attorney_name": "张计骅",
+            "attorney_firm": "上海市共同综合律师事务所"
+        }
+    }
+}

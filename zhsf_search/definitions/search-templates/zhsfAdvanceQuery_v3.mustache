@@ -1,0 +1,351 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "must": [
+            
+            {{#quanwen}}
+            {
+              "simple_query_string": {
+                "query": "{{quanwen}}",
+                "fields": ["s22", "s23", "s25", "s26^3", "s27", "s28", "s53"]
+              }
+            }{{^last}}, {{/last}}
+            {{/quanwen}}
+            
+            {{#s1}}
+            {
+              "match": {
+                "s1": "{{s1}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/s1}}
+            
+            {{#s7}}
+            {
+              "match": {
+                "s7.num": "{{s7}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/s7}}
+            
+            {{#court_name}}
+            {
+              "match": {
+                "court_name.search_name": "{{court_name}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/court_name}}
+            
+            {{#s31}}
+            {
+              "range": {
+                "s31": {
+                  {{#start}}
+                  "gte": "{{start}}"{{#end}}, {{/end}}
+                  {{/start}}
+                  
+                  {{#end}}
+                  "lte": "{{end}}"
+                  {{/end}}
+                }
+              }
+            }{{^last}}, {{/last}}
+            {{/s31}}
+            
+            {{#officers_name}}
+            {
+              "nested": {
+                "path": "officers",
+                "query": {
+                  "term": {
+                    "officers.name": "{{officers_name}}"
+                  }
+                }
+              }
+            }{{^last}}, {{/last}}
+            {{/officers_name}}
+            
+            {{#s47}}
+            {
+              "nested": {
+                "path": "legal_basis",
+                "query": {
+                  "bool": {
+                    "must": [
+                      
+                      {{#fgmc}}
+                      {
+                        "match": {
+                          "legal_basis.law": "{{fgmc}}"
+                        }
+                      }{{^s47_last}}, {{/s47_last}}
+                      {{/fgmc}}
+                      
+                      {{#tkx}}
+                      {
+                        "match": {
+                          "legal_basis.article": "{{tkx}}"
+                        }
+                      }{{^s47_last}}, {{/s47_last}}
+                      {{/tkx}}
+                    ]
+                  }
+                }
+              }
+            }{{^last}}, {{/last}}
+            {{/s47}}
+            
+          ],
+          "filter": [
+            
+            {{#cause_id}}
+            {
+              "terms": {
+                "cause_id": "cause_id"
+              }
+            }{{^last}}, {{/last}}
+            {{/cause_id}}
+            
+            {{#court_id}}
+            {
+              "prefix": {
+                "court_id": "{{court_id}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/court_id}}
+            
+            {{#court_level}}
+            {
+              "term": {
+                "court_level": "{{court_level}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/court_level}}
+            
+            {{#s8}}
+            {
+              "term": {
+                "s8": "{{s8}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/s8}}
+            
+            {{#lvl1_spcx}}
+            {
+              "term": {
+                "lvl1_spcx": "{{lvl1_spcx}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/lvl1_spcx}}
+            
+            {{#lvl2_spcx}}
+            {
+              "term": {
+                "lvl2_spcx": "{{lvl2_spcx}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/lvl2_spcx}}
+            
+            {{#s6}}
+            {
+              "term": {
+                "s6": "{{s6}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/s6}}
+            
+            {{#keywords}}
+            {
+              "terms": {
+                "keywords": "{{keywords}}"
+              }
+            }{{^last}}, {{/last}}
+            {{/keywords}}
+            
+            {{#litigant}}
+            {
+              "nested": {
+                "path": "litigant",
+                "query": {
+                  "bool": {
+                    "filter": [
+                      
+                      {{#name}}
+                      {
+                        "term": {
+                          "litigant.name": "{{name}}"
+                        }
+                      }{{^litigant_last}}, {{/litigant_last}}
+                      {{/name}}
+                      
+                      {{#attorney}}
+                      {
+                        "nested": {
+                          "path": "litigant.attorneys",
+                          "query": {
+                            "bool": {
+                              "filter": [
+                                
+                                {{#attorney_name}}
+                                {
+                                  "term": {
+                                    "litigant.attorneys.name": "{{attorney_name}}"
+                                  }
+                                },
+                                {{/attorney_name}}
+                                
+                                {{#attorney_firm}}
+                                {
+                                  "term": {
+                                    "litigant.attorneys.firm": "{{attorney_firm}}"
+                                  }
+                                },
+                                {{/attorney_firm}}
+                                
+                                {
+                                  "term": {
+                                    "litigant.attorneys.type": "律师"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }{{^litigant_last}}, {{/litigant_last}}
+                      {{/attorney}}
+                      
+                    ]
+                  }
+                }
+              }
+            }{{^last}}, {{/last}}
+            {{/litigant}}
+            
+          ]
+        }
+      },
+      "functions": [
+        {
+          "filter": {
+            "exists": {
+              "field": "s26"
+            }
+          },
+          "weight": 2
+        }
+      ]
+    }
+  },
+  {{^search_after}}
+  {{#from}}
+  "from": {{from}},
+  {{/from}}
+  {{/search_after}}
+  "size": 10,
+  "sort": [
+  
+    {{#s31_sort}}
+    {
+      "s31": "{{s31_sort_order}}{{^s31_sort_order}}desc{{/s31_sort_order}}"
+    },{{/s31_sort}}
+    
+    {{#court_level_sort}}
+    {
+      "court_level": "{{court_level_sort_order}}{{^court_level_sort_order}}asc{{/court_level_sort_order}}"
+    },{{/court_level_sort}}
+    
+    {
+      "_score": "{{sort_order}}{{^sort_order}}desc{{/sort_order}}"
+    }
+  ],
+  {{#search_after}}
+  "search_after": [{{search_after}}],
+  {{/search_after}}
+  "track_total_hits": true,
+  "_source": ["s1", "court_name", "s7", "s31", "lvl1_spcx", "s26"],
+  "highlight": {
+    "fields": {
+      "s1": {
+        "order": "score"
+      },
+      "s26": {
+        "order": "score",
+        "number_of_fragments": 1
+      }
+    }
+  }
+  {{^search_after}}
+  {{^from}}
+  {{^s31_sort}}
+  ,
+  "aggs": {
+    
+    "keywords": {
+      "terms": {
+        "field": "keywords",
+        "size": 35
+      }
+    },
+  
+    "cause_id": {
+      "terms": {
+        "field": "cause_id",
+        "size": 1000
+      }
+    },
+    
+    "court_level": {
+      "terms": {
+        "field": "court_level"
+      }
+    },
+    
+    "court_id": {
+      "terms": {
+        "field": "court_id",
+        "size": 5000
+      }
+    },
+    
+    "year": {
+      "date_histogram": {
+        "field": "s31",
+        "calendar_interval": "year"
+      }
+    },
+    
+    "s8": {
+      "terms": {
+        "field": "s8"
+      },
+      "aggs": {
+        "lvl1_spcx": {
+          "terms": {
+            "field": "lvl1_spcx",
+            "size": 100
+          },
+          "aggs": {
+            "lvl2_spcx": {
+              "terms": {
+                "field": "lvl2_spcx",
+                "size": 100
+              }
+            }
+          }
+        }
+      }
+    },
+    
+    "s6": {
+      "terms": {
+        "field": "s6",
+        "size": 20
+      }
+    }
+  }
+  {{/s31_sort}}
+  {{/from}}
+  {{/search_after}}
+}
