@@ -1,0 +1,6 @@
+wenshu_pm2_v3 --> zhsf_3_0
+1. cause_of_case 由一个字段改成  cause_id、cause 两个字段。
+2. litigant_active、litigant_passive、litigant_middle 合并为一个字段 litigant，并在 litigant 字段中增加 part 属性标识这个当事人是属于主动方、被动方或第三人。
+3. litigant.attorney 中增加 name_firm、opposite_name、opposite_firm 字段。
+4. 增加 keywords 字段。
+5. 修改法律依据字段名称，由 s47 修改为 legal_basis，里面的属性由 tkx、fgmc 修改 为 article、law。

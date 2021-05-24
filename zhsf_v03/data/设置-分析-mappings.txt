@@ -1,0 +1,266 @@
+{
+	"settings": {
+		"index": {
+			"number_of_shards": 3,
+			"number_of_replicas": 1,
+			"refresh_interval": "-1",
+			"analysis": {
+				"analyzer": {
+					"num_analyzer": {
+						"type": "pattern",
+						"pattern": "\\D+"
+					}
+				}
+			}
+		}
+	},
+	"mappings": {
+		"properties": {
+            // （开始）-------------------------------------  （增强）法院信息包含这4项，根据法院映射表而来，现成的。
+            "court_id": {  // 法院 id
+                "type": "keyword"
+            },
+            "court_name": {  // 法院名称
+                "type": "keyword",
+				"fields": {
+					"search_name": {
+						"type": "text",
+                        "store": true,
+                        "analyzer": "ik_max_word",
+                        "search_analyzer": "ik_smart",
+                        "norms": true,
+                        "term_vector": "with_positions_offsets",
+                        "boost": 1.5
+					}
+				}  
+            },
+            "area": {  // 法院所属区域
+                "type": "keyword"
+            },
+            "court_level": {  // 法院所属层级
+                "type": "keyword"
+            },
+            // -------------------------------------（结束）
+            // （开始）-------------------------------------  （增强）
+            "officers": {  // 法官
+                "type": "nested",
+                "properties": {
+                    "position": {  // 法官职位
+                        "type": "keyword"
+                    },
+                    "name": {  // 法官名称
+                        "type": "keyword"
+                    },
+                    "name_court": {  // 法官名称|法院名称
+                        "type": "keyword"
+                    },
+                    "collegial_panel_members": {  // 合议庭成员
+                        "type": "keyword"
+                    }
+                }
+            },
+            // -------------------------------------（结束）
+            // （开始）-------------------------------------  （增强）
+            "cause_id": {  // 案由 id
+                "type": "keyword"
+            },
+            "cause": {
+                "type": "keyword"
+            },
+            // -------------------------------------（结束）
+            // （开始）-------------------------------------  （增强）
+            "lvl1_spcx": {  // 一级审批程序
+                "type": "keyword"
+            },
+            "lvl2_spcx": {  // 二级审批程序
+                "type": "keyword"
+            },
+            "spcx_category": {  // 审批程序种类（大类）
+                "type": "keyword"
+            },
+            // -------------------------------------（结束）
+            "xgws": {  // 相关文书
+				"type": "nested",
+				"properties": {
+					"id": {  // 相关文书id
+						"type": "keyword"
+					},
+                    "num": {  // 相关文书案号
+                        "type": "keyword"
+                    },
+                    "judgement_date": {  // 相关文书审判日期
+                        "type": "date"
+                    },
+                    "hearing_cycle": {  // 审理周期
+                        "type": "integer"
+                    }
+				}
+			},
+            // （开始）-------------------------------------  （增强）当事人
+            "litigant": {
+                "type": "nested",
+                "properties": {
+                    "role": {"type": "keyword"},  // 原告、上诉人等
+                    "name": {"type": "keyword"},
+                    "part": {"type": "keyword"},  // 表示当事人属于哪一方，是主动方还是被动方
+                    "category": {"type": "keyword"},  // 自然人、科研机构等，是ID
+                    "representatives": {"type": "keyword"},  // 当事人代表人
+                    "attorneys": {  // 代理人
+                        "type": "nested",
+                        "properties": {
+                            "name": {"type": "keyword"},
+                            "name_firm": {"type": "keyword"},
+                            "type": {"type": "keyword"},  // 律师、法律工作者等，主要用于识别是否是律师
+                            "firm": {"type": "keyword"},  // 公司，事务所或者服务所
+                            "opposite_name": {"type": "keyword"},  // 对手律师，只有律师才会加入，是人名#公司名的形式
+                            "opposite_firm": {"type": "keyword"}  // 对手律所
+                        }
+                    }
+                }
+            },
+            // -------------------------------------（结束）
+            "s1": {  // 文书名称
+				"type": "text",
+				"store": "true",
+				"boost": "3.0",
+				"norms": true,
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart",
+				"term_vector": "with_positions_offsets"
+			},
+            "s5": {  // 文书ID
+                "type": "keyword",
+                "index": "false"
+            },
+			"s6": {  // 文书类型
+				"type": "keyword"
+			},
+			"s7": {  // 案号
+				"type": "keyword",
+				"fields": {
+					"num": {
+						"type": "text",
+						"analyzer": "num_analyzer"
+					}
+				}
+			},
+			"s8": {  // 案件类型
+				"type": "keyword"
+			},
+			"s22": {  // 首部
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart",
+				"norms": true,
+				"term_vector": "with_positions_offsets"
+			},
+			"s23": {  // 诉讼记录
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart",
+				"norms": true,
+				"term_vector": "with_positions_offsets"
+			},
+			"s25": {  // 事实，很多空格，一定要去的空格，已经去掉
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart",
+				"norms": true,
+				"term_vector": "with_positions_offsets",
+                "copy_to": "key_content"
+			},
+			"s26": {  // 理由
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart",
+				"norms": true,
+				"term_vector": "with_positions_offsets",
+                "copy_to": "key_content"
+			},
+            "key_content": {
+                "type": "text",
+				"analyzer": "ik_smart",
+				"norms": true,
+				"term_vector": "with_positions_offsets"
+            },
+			"s27": {  // 判决结果
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart",
+				"norms": true,
+				"term_vector": "with_positions_offsets"
+			},
+			"s28": {  // 尾部
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart",
+				"norms": true,
+				"term_vector": "with_positions_offsets"
+			},
+            // （开始）-------------------------------------  （增强）
+			"s53": {  // 当事人段
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart",
+				"norms": true,
+				"term_vector": "with_positions_offsets"
+			},
+            // -------------------------------------（结束）
+            "s31": {  // 裁判日期
+				"type": "date"
+			},
+			"s32": {  // 不公开理由，见bgkly
+				"type": "keyword"
+			},
+			"s41": {  // 发布日期
+				"type": "date"
+			},
+            // （开始）-------------------------------------  （增强）
+			"keywords": {  // 关键字
+				"type": "keyword",
+				"store": true
+			},
+            // -------------------------------------（结束）
+            "legal_basis": {  // 法律依据
+				"type": "nested",
+				"properties": {
+					"article": {
+                        "type": "text",
+						"analyzer": "ik_max_word",
+						"search_analyzer": "ik_smart",
+						"norms": true
+                    },
+					"law": {
+						"type": "text",
+						"analyzer": "ik_max_word",
+						"search_analyzer": "ik_smart",
+						"norms": true
+					},
+                    "law_article": {
+						"type": "keyword"
+					}
+				}
+			},
+			"viewCount": {  // 查看次数
+				"type": "integer",
+				"index": "false"
+			},
+			"s46": {  // 结案方式
+				"type": "keyword"
+			},
+			"s51": {  // 附，包括附清单，附条文等，有时是重复
+				"type": "text",
+				"index": "false"
+			},
+            "claims_type": {  // 诉讼请求类型
+                "type": "keyword"
+            },
+            "is_final_judgment": {  // 是否为终审
+                "type": "boolean"
+            },
+            "case_result_type": {  // 案件结果类型
+                "type": "keyword"
+            }
+		}
+	}
+}

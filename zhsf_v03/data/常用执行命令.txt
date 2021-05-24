@@ -1,0 +1,58 @@
+E:\wenshuES\zhsf_v03
+E:\wenshuES\zhsf_search
+
+
+python -m zhsf.cleaning_data.cleaning_data_with_ncl
+
+c412e10e1fc24f0caf6d3d02b1f76c4a
+
+python -m zhsf.cleaning_data.cleaning_data_with_clt
+
+
+python -m zhsf.test.augmenting_data.get_litigant.test_get_roles
+
+
+python -m zhsf.augmenting_data.get_keywords
+
+python -m zhsf.augmenting_data.get_cause
+
+
+python -m zhsf.augmenting_data.get_litigant.get_litigant_paragraph
+
+python -m zhsf.augmenting_data.get_litigant.get_roles
+
+python -m zhsf.augmenting_data.get_litigant.split_litigant
+
+python -m zhsf.augmenting_data.get_litigant.get_litigant_other_info
+
+
+python -m zhsf.augmenting_data.get_claims
+
+python -m zhsf.augmenting_data.get_case_result_type
+
+
+python -m zhsf.augmenting_data.get_relevant_doc
+
+
+python -m zhsf.indexing_data.index
+
+
+python -m zhsf.test.indexing_data.test_index
+
+python -m zhsf.test.utils.test_util_functions
+
+python -m zhsf.test.cleaning_data.test_cleaning_data_with_ncl
+
+python -m zhsf.test.augmenting_data.test_get_keywords
+
+
+
+120.229.135.176
+120.229.135.176
+120.229.135.236
+
+
+
+python -m zhsfstt.operate_template.operate_template
+
+python -m zhsfstt.test.operate_template.test_operate_template
